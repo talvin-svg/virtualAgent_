@@ -34,8 +34,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: MyVirtualAgent(),
-    );
+    return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyVirtualAgent()),
+            );
+          },
+          child: const Icon(Icons.add),
+        ),
+        body: const SizedBox(
+          child: Center(
+            child: Text('Talk to a virtual agent here!'),
+          ),
+        ));
   }
 }
