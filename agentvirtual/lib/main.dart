@@ -1,15 +1,7 @@
 import 'package:agentvirtual/chat/agent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 void main() {
-  // AppState? initialState;
-  // AppState newInitialState = AppState.initial();
-
-  // Store<AppState> store = Store<AppState>(
-  //   globalReducer,
-  //   initialState: initialState ?? newInitialState,
-  // );
   runApp(const MyApp());
 }
 

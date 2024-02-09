@@ -16,6 +16,11 @@ class _MyVirtualAgentState extends State<MyVirtualAgent> {
   final List<Map<String, BubblePosition>> _messages = [];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

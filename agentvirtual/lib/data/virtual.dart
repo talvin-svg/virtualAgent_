@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:agentvirtual/api/request_models.dart';
 import 'package:agentvirtual/api/response.models.dart';
+import 'package:agentvirtual/config.dart';
 import 'package:http/http.dart' as http;
 
 class VirtualAgentAPI {
   static Future getResponseFromAgent(String prompt) async {
-    String apiKey = "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";
+    String apiKey = Env.apiKey;
     final headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       "Authorization": "Bearer $apiKey"
