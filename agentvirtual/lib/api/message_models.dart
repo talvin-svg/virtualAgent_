@@ -1,13 +1,13 @@
 class Message {
-  final String id;
-  final String senderId;
+  final String? id;
+  final String? senderId;
   final String content;
-  final DateTime createdAt;
+  final DateTime? createdAt;
   Message({
-    required this.id,
-    required this.senderId,
+    this.id,
+    this.senderId,
     required this.content,
-    required this.createdAt,
+    this.createdAt,
   });
 
   Message copyWith({
@@ -29,7 +29,7 @@ class Message {
       'id': id,
       'senderId': senderId,
       'content': content,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': createdAt?.millisecondsSinceEpoch,
     };
   }
 

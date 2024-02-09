@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   dart_openai: ^5.0.0
   http: ^1.2.0
+  redux: ^5.0.0
+  flutter_redux: ^0.10.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

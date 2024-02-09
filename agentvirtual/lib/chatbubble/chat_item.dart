@@ -1,4 +1,4 @@
-import 'package:agentvirtual/api/model.dart';
+import 'package:agentvirtual/api/message_models.dart';
 import 'package:flutter/material.dart';
 
 enum BubblePosition { left, right }
@@ -6,14 +6,14 @@ enum BubblePosition { left, right }
 class ChatItem extends StatelessWidget {
   final BubblePosition position;
   final Message message;
-  final String lastSenderId;
-  final String chatCode;
+  final String? lastSenderId;
+  final String? chatCode;
   const ChatItem(
       {super.key,
       required this.position,
       required this.message,
-      required this.lastSenderId,
-      required this.chatCode});
+      this.lastSenderId,
+      this.chatCode});
 
   @override
   Widget build(BuildContext context) {
@@ -46,58 +46,52 @@ class ChatItem extends StatelessWidget {
   }
 
   Widget _renderLeftChat(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          Text(
-            message.content,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(15),
           ),
-          const SizedBox(width: 5),
-          Text(
-            '${message.createdAt.toLocal().hour}:${message.createdAt.toLocal().minute}',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 12,
-            ),
+          child: Row(
+            children: [
+              Text(
+                message.content,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Expanded(child: Container())
+      ],
     );
   }
 
   Widget _renderRightChat(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          Text(
-            message.content,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
+    return Row(
+      children: [
+        Expanded(child: Container()),
+        Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: BorderRadius.circular(15),
           ),
-          const SizedBox(width: 5),
-          Text(
-            '${message.createdAt.toLocal().hour}:${message.createdAt.toLocal().minute}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
+          child: Row(
+            children: [
+              Text(
+                message.content,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

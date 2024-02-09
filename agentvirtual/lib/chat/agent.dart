@@ -1,3 +1,7 @@
+import 'package:agentvirtual/api/message_models.dart';
+import 'package:agentvirtual/api/response.models.dart';
+import 'package:agentvirtual/chatbubble/chat_item.dart';
+import 'package:agentvirtual/data/virtual.dart';
 import 'package:flutter/material.dart';
 
 class MyVirtualAgent extends StatefulWidget {
@@ -8,7 +12,8 @@ class MyVirtualAgent extends StatefulWidget {
 }
 
 class _MyVirtualAgentState extends State<MyVirtualAgent> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+  final List<Map<String, BubblePosition>> _messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +25,19 @@ class _MyVirtualAgentState extends State<MyVirtualAgent> {
         body: SafeArea(
           child: Column(
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Virtual Agent',
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _messages.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ChatItem(
+                            position: _messages[index].values.first,
+                            message:
+                                Message(content: _messages[index].keys.first));
+                      },
                     ),
                   ],
                 ),
@@ -52,7 +64,18 @@ class _MyVirtualAgentState extends State<MyVirtualAgent> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              _messages.add({'You: ${_controller.text}': BubblePosition.right});
+              setState(() {
+                _controller.clear();
+              });
+              VirtualAgentResponse response =
+                  await VirtualAgentAPI.getResponseFromAgent(_controller.text);
+              _messages
+                  .add({'Agent: ${response.choices?[0]}': BubblePosition.left});
+
+              setState(() {});
+            },
             icon: const Icon(Icons.send),
           ),
         ],

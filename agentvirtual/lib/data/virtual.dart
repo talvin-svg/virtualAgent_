@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class VirtualAgentAPI {
   static Future getResponseFromAgent(String prompt) async {
-    String apiKey = "";
+    String apiKey = "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";
     final headers = {
       'Content-Type': 'application/json; charset=UTF-8',
       "Authorization": "Bearer $apiKey"
@@ -27,12 +27,27 @@ class VirtualAgentAPI {
         Uri.parse('https://api.openai.com/v1/completions');
 
     http.Response response = await http.post(virtualAgentEndpoint,
-        headers: headers, body: request.toMap());
+        headers: headers, body: json.encode(request.toMap()));
 
     if (response.statusCode == 200) {
-      VirtualAgentResponse.fromMap(json.decode(response.body));
+      VirtualAgentResponse agent =
+          VirtualAgentResponse.fromMap(json.decode(response.body));
+      return agent;
     } else {
-      throw Exception('Failed to get response from agent');
+      return const VirtualAgentResponse(
+        id: 'error',
+        object: 'error',
+        created: 0,
+        model: 'error',
+        choices: [
+          'Error getting response from agent,\n please try again later'
+        ],
+        usage: {},
+        promptTokens: 0,
+        completionTokens: 0,
+        totalTokens: 0,
+        firstCompletion: 'error',
+      );
     }
   }
 }
